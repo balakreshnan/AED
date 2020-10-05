@@ -53,7 +53,7 @@ spark.conf.set(
 - now the path where is stores usually year/month/day/hour/minute
 
 ```
-val jsonpath = "wasbs://iotstore@aedstoragebb.blob.core.windows.net/aedbb/03/2020/09/29/23"
+val jsonpath = "wasbs://containername@storagename.blob.core.windows.net/aedbb/03/2020/09/29/23"
 ```
 
 - Read the json and display
