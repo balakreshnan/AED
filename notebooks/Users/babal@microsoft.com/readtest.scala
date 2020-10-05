@@ -62,6 +62,36 @@ display(dffinal)
 
 // COMMAND ----------
 
+import spark.implicits._
+import org.apache.spark.sql.functions._
+
+// COMMAND ----------
+
+import spark.implicits._
+import org.apache.spark.sql.functions._
+
+ 
+
+val seq2 = Seq((1, """[{"width": "291", "height": "311", "position_x": "244", "position_y": "302", "label": "person", "confidence": "0.760254", "timestamp": "1397430986182"}]"""), 
+              (2, """[{"width": "291", "height": "311", "position_x": "244", "position_y": "302", "label": "person", "confidence": "0.760254", "timestamp": "1397430986182"}]"""))
+val df21 = seq2.toDF("id", "json")
+display(df21)
+
+ 
+
+val df22 = df21.select($"json", get_json_object($"json", "$[0].width").alias("width"))
+display(df22)
+
+// COMMAND ----------
+
+val jsDF = dffinal.select($"decoded_base64",get_json_object($"decoded_base64", "$[0].width").alias("width"))
+
+// COMMAND ----------
+
+display(jsDF)
+
+// COMMAND ----------
+
 val jsDF = dffinal.select($"EnqueuedTimeUtc", $"connectionAuthMethod" , $"connectionDeviceGenerationId", $"connectionDeviceId", $"connectionModuleId", $"enqueuedTime", $"decoded_base64",get_json_object($"decoded_base64", "$.width").alias("width"), get_json_object($"decoded_base64", "$.height").alias("height"),                  get_json_object($"decoded_base64", "$.position_x").alias("position_x"), get_json_object($"decoded_base64", "$.position_y").alias("position_y"),                          get_json_object($"decoded_base64", "$.label").alias("label"), get_json_object($"decoded_base64", "$.confidence").alias("confidence"),                          get_json_object($"decoded_base64", "$.timestamp").alias("timestamp"))
 
 // COMMAND ----------
